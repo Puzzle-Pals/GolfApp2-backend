@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
 const playerSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  handicap: { type: Number, default: 0 },
+  name: String,
+  handicap: Number,
   stats: {
-    wins: { type: Number, default: 0 },
+    averageScore: { type: Number, default: 0 },
     birdies: { type: Number, default: 0 },
-    closestToPin: { type: Number, default: 0 },
-    averageScore: { type: Number, default: 0 }
+    wins: { type: Number, default: 0 },
+    secondPlace: { type: Number, default: 0 },
+    highestScore: { type: Number, default: 0 },
+    deucePot: { type: Number, default: 0 },
+    closestToPin: { type: Number, default: 0 }
   }
 });
 
