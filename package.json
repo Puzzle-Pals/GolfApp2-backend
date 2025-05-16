@@ -1,24 +1,18 @@
 {
-  "name": "golf-league-backend",
+  "name": "golfapp2-backend",
   "version": "1.0.0",
-  "description": "Backend for the golf league app",
-  "main": "src/index.js",
+  "description": "Backend for Golf League App",
+  "main": "src/routes/server.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/routes/server.js",
+    "dev": "nodemon src/routes/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongodb": "^6.16.0",
-    "mongoose": "^8.14.3"
+    "mongoose": "^6.7.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

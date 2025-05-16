@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
   date: { type: Date, required: true },
+  time: { type: String, required: true },
   course: { type: String, required: true },
-  teams: [{ player1: { type: mongoose.Schema.Types.ObjectId, ref: 'Player' }, player2: { type: mongoose.Schema.Types.ObjectId, ref: 'Player' } }],
-  closestToPinHole: { type: Number, required: true }
+  par3Hole: { type: String },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Event', eventSchema);

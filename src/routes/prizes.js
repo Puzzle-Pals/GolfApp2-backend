@@ -1,16 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const Prize = require('../models/Prize');
+const Event = require('../models/Event');
 
 router.get('/', async (req, res) => {
-  const prizes = await Prize.find().populate('event firstPlace.team.player1 firstPlace.team.player2 secondPlace.team.player1 secondPlace.team.player2 highScore.team.player1 highScore.team.player2 deucePot.team.player1 deucePot.team.player2 closestToPin.player');
-  res.json(prizes);
+  try {
+    const events = await Event.find();
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.get('/next', async (req, res) => {
+  try {
+    const event = await Event.findOne({ date: { $gte: new Date() } }).sort({ date: 1 });
+    if (!event) return res.status(404).json({ message: 'No upcoming events' });
+    res.json(event);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 router.post('/', async (req, res) => {
-  const prize = new Prize(req.body);
-  await prize.save();
-  res.json(prize);
+  try {
+    const event = new Event(req.body);
+    const newEvent = await event.save();
+    res.status(201).json(newEvent);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
 module.exports = router;

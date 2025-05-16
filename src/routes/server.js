@@ -1,16 +1,25 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/golf-league');
+app.use('/api/events', require('./events'));
+app.use('/api/players', require('./players'));
+app.use('/api/prizes', require('./prizes'));
+app.use('/api/results', require('./results'));
+app.use('/api/scores', require('./scores'));
 
-app.use('/api/players', require('./routes/players'));
-app.use('/api/results', require('./routes/results'));
+mongoose.set('strictQuery', false);
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-// Additional endpoints: events, scores, etc.
-
-app.listen(5000, () => console.log('Server running on port 5000'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
